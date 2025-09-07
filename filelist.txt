@@ -1,0 +1,6 @@
+git/ignore:~/.config/git/ignore
+git/.gitconfig:~/.gitconfig
+home/.ansible.cfg:~/.ansible.cfg
+home/.bashrc:~/.bashrc
+home/.vimrc:~/.vimrc
+home/.editorconfig:~/.editorconfig

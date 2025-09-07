@@ -1,0 +1,33 @@
+[user]
+	name = yamause
+	email = yamause.devnezumi@gmail.com
+
+[init]
+    defaultbranch = main
+
+[column]
+    ui = auto
+
+[branch]
+    sort = committerdate
+
+[tag]
+    sort = version:refname
+
+[diff]
+    algorithm = histogram
+    colormoved = plain
+
+[push]
+    autosetupremote = true
+
+[help]
+    autocorrect = prompt
+
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential

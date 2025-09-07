@@ -1,0 +1,19 @@
+# Python
+.venv/
+venv/
+__chache__
+dist/
+.mypy_cache/
+__pycache__/
+
+# Editor
+.vscode/
+
+# Other
+my-memo*
+*.bk
+*.swp
+
+# AI
+.clinerules
+memory-bank/
