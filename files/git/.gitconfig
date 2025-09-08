@@ -3,26 +3,26 @@
 	email = yamause.devnezumi@gmail.com
 
 [init]
-    defaultbranch = main
+	defaultbranch = main
 
 [column]
-    ui = auto
+	ui = auto
 
 [branch]
-    sort = committerdate
+	sort = committerdate
 
 [tag]
-    sort = version:refname
+	sort = version:refname
 
 [diff]
-    algorithm = histogram
-    colormoved = plain
+	algorithm = histogram
+	colormoved = plain
 
 [push]
-    autosetupremote = true
+	autosetupremote = true
 
 [help]
-    autocorrect = prompt
+	autocorrect = prompt
 
 [credential "https://github.com"]
 	helper =
@@ -31,3 +31,10 @@
 [credential "https://gist.github.com"]
 	helper =
 	helper = !/usr/bin/gh auth git-credential
+
+[includeIf "gitdir:~/Dev/work/"]
+	path = ~/.gitconfig_work
+
+[includeIf "gitdir:~/Dev/private/"]
+	path = ~/.gitconfig_private
+
