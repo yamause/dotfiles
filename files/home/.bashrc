@@ -146,11 +146,6 @@ if [ -f ~/.git-prompt.sh ]; then
     PS1='\[\033[32m\]\u@\h\[\033[00m\] \[\033[33m\]\W\[\033[1;36m\]$(__git_ps1 " (%s)")\[\033[00m\]\$ '
 fi
 
-if command -v gh >/dev/null 2>&1; then
-    GH_TOKEN="$(gh auth token)"
-    export GH_TOKEN="$GH_TOKEN"
-fi
-
 # WSL specific settings
 if [ -n "$WSL_DISTRO_NAME" ]; then
     WIN_USER=$(powershell.exe "\$env:USERNAME"| tr -d "\r")
