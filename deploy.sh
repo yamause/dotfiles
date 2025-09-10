@@ -5,7 +5,7 @@ set -eu
 BASE_DIR=$(realpath "$(dirname "$0")")
 DOTFILES="$BASE_DIR/files"
 FILE_LIST="$BASE_DIR/filelist.txt"
-BACKUP_DIR="$BASE_DIR/backup"
+BACKUP_DIR="$BASE_DIR/backup/$(date +%Y%m%d_%H%M%S)"
 
 while read -r LINE; do
 
