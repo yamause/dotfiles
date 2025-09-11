@@ -27,6 +27,11 @@ while read -r LINE; do
 
         unlink "$DEST_PATH"
         echo "Unlink: $DEST_PATH"
-        continue
+
+        # bashrcを削除する場合、その後/etc/skelからコピーする
+        if [ "$DEST_PATH" == "$HOME/.bashrc" ] && [ ! -e "$HOME/.bashrc" ] && [ -e "/etc/skel/.bashrc" ]; then
+            cp "/etc/skel/.bashrc" "$HOME/.bashrc"
+            echo "Copy: /etc/skel/.bashrc to $HOME/.bashrc"
+        fi
     fi
 done < "$FILE_LIST"
