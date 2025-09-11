@@ -14,6 +14,14 @@ my-memo*
 *.bk
 *.swp
 
+# Environment
+.env
+env
+.envrc
+
 # AI
 .clinerules
 memory-bank/
+
+# MacOS
+.DS_Store
