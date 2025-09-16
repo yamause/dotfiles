@@ -5,7 +5,8 @@ set -eu
 BASE_DIR=$(realpath "$(dirname "$0")")
 DOTFILES="$BASE_DIR/files"
 FILE_LIST="$BASE_DIR/filelist.txt"
-BACKUP_DIR="$BASE_DIR/backup/$(date +%Y%m%d_%H%M%S)"
+BACKUP_BASE_DIR="$BASE_DIR/backup"
+BACKUP_DIR="$BACKUP_BASE_DIR/$(date +%Y%m%d_%H%M%S)"
 
 while read -r LINE; do
 
@@ -20,12 +21,17 @@ while read -r LINE; do
         continue
     fi
 
-    # バックアップ
-    if [ -e "$DEST_PATH" ] || [ -L "$DEST_PATH" ]; then
+    # dotfilesで管理されていないファイルが存在する場合はバックアップ
+    if [ -e "$DEST_PATH" ] && [ "$(realpath "$FILE_PATH")" != "$(realpath "$DEST_PATH")" ]; then
 
         # バックアップディレクトリの作成
         if [ ! -d "$BACKUP_DIR" ]; then
             mkdir -p "$BACKUP_DIR"
+        fi
+
+        # バックアップディレクトリに.gitignoreがなければ作成
+        if [ ! -e "$BACKUP_BASE_DIR/.gitignore" ]; then
+            echo -e "# Automatically created by dotfiles.\n*" > "$BACKUP_BASE_DIR/.gitignore"
         fi
 
         cp "$DEST_PATH" "$BACKUP_DIR/$(basename "$DEST_PATH").bk"
