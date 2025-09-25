@@ -1,6 +1,5 @@
 # Python
 __chache__
-dist/
 __pycache__/
 __version.py
 
@@ -23,3 +22,5 @@ memory-bank/
 
 # MacOS
 .DS_Store
+
+**/.claude/settings.local.json
