@@ -17,6 +17,7 @@
 [diff]
 	algorithm = histogram
 	colormoved = plain
+	tool = vscode
 
 [push]
 	autosetupremote = true
@@ -37,3 +38,7 @@
 
 [includeIf "gitdir:~/Dev/private/"]
 	path = ~/.gitconfig_private
+[core]
+	editor = code --wait
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
