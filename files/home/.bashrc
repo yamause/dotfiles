@@ -118,7 +118,14 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export EDITOR="/usr/bin/vim"
+
+# デフォルトエディタの設定
+if type -P code >/dev/null 2>&1; then
+    export EDITOR="code --wait"
+elif type -P vim >/dev/null 2>&1; then
+    export EDITOR="vim"
+fi
+
 
 # fzf settings
 if command -v fzf >/dev/null 2>&1; then
