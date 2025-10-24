@@ -4,3 +4,4 @@ home/.ansible.cfg:~/.ansible.cfg
 home/.bashrc:~/.bashrc
 home/.vimrc:~/.vimrc
 home/.editorconfig:~/.editorconfig
+vscode/settings.json:~/.vscode-server/data/Machine/settings.json
