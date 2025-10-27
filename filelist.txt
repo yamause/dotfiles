@@ -7,3 +7,4 @@ home/.editorconfig:~/.editorconfig
 vscode/settings.json:~/.vscode-server/data/Machine/settings.json
 ai/CLAUDE.md:~/.claude/CLAUDE.md
 ai/scripts:~/.claude/scripts
+ai/settings.json:~/.claude/settings.json

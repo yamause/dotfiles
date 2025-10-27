@@ -1,0 +1,54 @@
+{
+  "awsAuthRefresh": "aws sso login --profile bedrock",
+  "env": {
+    "AWS_PROFILE": "bedrock"
+  },
+  "includeCoAuthoredBy": false,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.command | select(test(\"^git commit\"))' | grep -q . && ~/.claude/scripts/check-branch.sh || true"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/scripts/rotate-logs.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date)] $USER: $(jq -r '.tool_input.command')\" >> ~/.claude/command_history.log"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path | select(endswith(\".py\"))' | xargs -r ruff format"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/scripts/init-work-journal.sh \"$(pwd)\""
+          }
+        ]
+      }
+    ]
+  }
+}
