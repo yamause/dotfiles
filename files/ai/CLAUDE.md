@@ -10,12 +10,17 @@ When starting a **new development session or task context** (i.e., when you star
 
 *Rationale: This ensures that the work done within a single logical conversation with Claude is isolated and easy to review/revert.*
 
-### 2. Commit Timing
+*Note: Automated checks via hooks will warn you if attempting to commit to main/master branches.*
+
+### 2. Commit Timing and Message Style
 
 Make a commit for **each completed turn or significant interaction** with Claude Code.
 
 * **A "turn" or "interaction" is defined as a unit of work:** typically, a set of changes resulting from **one prompt/command from the user and the resulting output/modification by Claude.**
-* The commit message should be concise and clearly describe the content of that specific interaction in **Japanese**.
+* The commit message should be:
+  - **Concise** (1-2 sentences focusing on "why" rather than "what")
+  - Written in **Japanese**
+  - Accurately reflect the nature of changes (new feature, enhancement, bug fix, refactoring, etc.)
 
 ### 3. Handling Rollbacks (Reverting Work)
 
@@ -25,13 +30,17 @@ If a change of direction or a rollback becomes necessary during a task, you may 
 
 To maintain continuity across work sessions, you must maintain a work journal in the project root directory.
 
+*Note: The `./work-journal` directory will be automatically initialized when starting a Claude Code session if it doesn't exist.*
+
 #### At the Start of Work:
 
-1. Check for the `./work-journal` directory in the project root
-2. If it exists, read the .md files inside to understand the context of previous work sessions
-3. If the directory does not exist:
-   * Create the `./work-journal` directory
-   * Create a `.gitignore` file inside it with the content `*` to exclude all journal files from Git tracking
+1. The `./work-journal` directory is automatically checked and created if needed (via SessionStart hook)
+2. If journal files exist, read the .md files to understand the context of previous work sessions
+3. Consider the historical context when planning your current work
+
+#### During Work:
+
+Track significant decisions, blockers, and context that would be valuable for future sessions. This helps maintain continuity across development sessions.
 
 #### At the End of Work:
 
@@ -44,3 +53,12 @@ To maintain continuity across work sessions, you must maintain a work journal in
    * References to related branches, commits, or files
 
 *Rationale: The work journal provides continuity between sessions, allowing you (or future sessions) to understand the context and progress of ongoing work without having to re-examine the entire codebase.*
+
+### 5. Automated Quality Checks
+
+The following automated checks are configured via hooks:
+
+* **Branch protection**: Warning when committing to main/master branches
+* **Python formatting**: Automatic `ruff format` execution for .py files
+* **Command history**: All Bash commands are logged for audit purposes
+* **Log rotation**: Command history logs are automatically rotated when exceeding size limits
