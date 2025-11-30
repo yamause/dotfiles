@@ -34,7 +34,7 @@ while read -r LINE; do
             echo -e "# Automatically created by dotfiles.\n*" > "$BACKUP_BASE_DIR/.gitignore"
         fi
 
-        cp "$DEST_PATH" "$BACKUP_DIR/$(basename "$DEST_PATH").bk"
+        cp -r "$DEST_PATH" "$BACKUP_DIR/$(basename "$DEST_PATH").bk"
         echo "Backup: $DEST_PATH to $BACKUP_DIR/$(basename "$DEST_PATH").bk"
     fi
 
