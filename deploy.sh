@@ -37,6 +37,14 @@ while read -r LINE; do
         cp "$DEST_PATH" "$BACKUP_DIR/$(basename "$DEST_PATH").bk"
         echo "Backup: $DEST_PATH to $BACKUP_DIR/$(basename "$DEST_PATH").bk"
     fi
+
+    # リンク先の親ディレクトリが存在しない場合は作成
+    DEST_DIR=$(dirname "$DEST_PATH")
+    if [ ! -d "$DEST_DIR" ]; then
+        mkdir -p "$DEST_DIR"
+        echo "Create directory: $DEST_DIR"
+    fi
+
     ln -sf "$FILE_PATH" "$DEST_PATH"
     echo "Link: $FILE_PATH to $DEST_PATH"
 
