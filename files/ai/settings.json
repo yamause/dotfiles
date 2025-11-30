@@ -11,10 +11,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.command | select(test(\"^git commit\"))' | grep -q . && ~/.claude/scripts/check-branch.sh || true"
-          },
-          {
-            "type": "command",
             "command": "~/.claude/scripts/rotate-logs.sh"
           }
         ]
@@ -40,12 +36,12 @@
         ]
       }
     ],
-    "SessionStart": [
+    "Stop": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/scripts/init-work-journal.sh \"$(pwd)\""
+            "command": "~/.claude/scripts/auto-commit.sh"
           }
         ]
       }
