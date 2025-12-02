@@ -9,3 +9,4 @@ ai/CLAUDE.md:~/.claude/CLAUDE.md
 ai/commands/commit.md:~/.claude/commands/commit.md
 ai/scripts/auto-commit.sh:~/.claude/scripts/auto-commit.sh
 ai/scripts/generate-commit-prompt.sh:~/.claude/scripts/generate-commit-prompt.sh
+ai/settings.json:~/.claude/settings.json
