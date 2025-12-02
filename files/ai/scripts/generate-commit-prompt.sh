@@ -165,15 +165,96 @@ $FULL_DIFF_SUMMARY
         - refactor: リファクタリング → refactor/xxx
         - perf: パフォーマンス改善 → perf/xxx
         - test: テスト追加・修正 → test/xxx
-        - chore: ビルド・補助ツール → chore/xxx
+        - build: ビルドシステム → build/xxx
+        - ci: CI設定 → ci/xxx
+        - chore: その他の変更 → chore/xxx
      b. git checkout -b [タイプ]/[説明] で新ブランチを作成
      c. ステップ3へ進む
 
 3. 変更をコミット${SPLIT_COMMIT_SUGGESTION}
    - 変更範囲に応じて適切にファイルをステージング（git add）
-   - 変更内容を分析し日本語で、Conventional Commitsに従い適切なコミットメッセージを作成してコミット
-     - タイプ: feat, fix, docs, style, refactor, perf, test, chore
+   - 変更内容を分析し、Conventional Commits v1.0.0に厳密に従ってコミットメッセージを作成
+
+   【Conventional Commits フォーマット（厳密遵守）】
+
+   基本構造：
+   <type>[optional scope]: <description>
+
+   [optional body]
+
+   [optional footer(s)]
+
+   必須要素：
+   - type: 必須。以下のいずれか
+     * feat: 新機能の追加（Semantic VersioningのMINORに対応）
+     * fix: バグ修正（Semantic VersioningのPATCHに対応）
+     * build: ビルドシステムや外部依存関係の変更
+     * chore: その他の変更（ソースコードやテストに影響しない）
+     * ci: CI設定ファイルやスクリプトの変更
+     * docs: ドキュメントのみの変更
+     * style: コードの意味に影響しない変更（空白、フォーマット、セミコロンなど）
+     * refactor: バグ修正でも機能追加でもないコード変更
+     * perf: パフォーマンスを向上させるコード変更
+     * test: テストの追加や既存テストの修正
+
+   - description: 必須。変更の簡潔な説明
+     * 日本語で記述
+     * 小文字で始める
+     * 末尾にピリオドを付けない
+     * 命令形を使用
+
+   任意要素：
+   - scope: 任意。変更の範囲を括弧内に記述（例: api, parser, cli）
+   - body: 任意。変更の動機や以前の動作との対比を詳細に説明
+     * descriptionの後に空行を1行入れてから記述
+     * 複数行可
+   - footer: 任意。破壊的変更やissue参照を記述
+     * bodyの後に空行を1行入れてから記述
+     * 複数のfooterを記述可能
+
+   破壊的変更の表現：
+   - 方法1: type/scopeの後に ! を付ける
+     例: feat!: allow provided config object to extend other configs
+   - 方法2: footerに BREAKING CHANGE: を記述
+     例: BREAKING CHANGE: environment variables now take precedence over config files.
+   - 破壊的変更はSemantic VersioningのMAJORに対応
+   - 任意のtypeで破壊的変更を含められる
+
+   実例：
+
+   1. シンプルな例：
+   feat: ユーザー認証機能を追加
+
+   2. scopeを含む例：
+   fix(parser): 配列解析時のメモリリークを修正
+
+   3. 破壊的変更（!付き）：
+   feat!: APIレスポンス形式をv2に変更
+
+   4. body付きの詳細な例：
+   fix: レース条件によるリクエスト競合を防止
+
+   リクエストIDと最新リクエストへの参照を導入。
+   最新リクエスト以外からの受信レスポンスは破棄する。
+
+   5. footer付きの例：
+   feat(api): ユーザープロフィール取得エンドポイントを追加
+
+   GET /api/users/:id/profile エンドポイントを実装。
+   認証済みユーザーのみアクセス可能。
+
+   Refs: #123
+
+   6. 破壊的変更（footer）：
+   refactor: 設定ファイルの読み込み処理を変更
+
+   BREAKING CHANGE: 環境変数が設定ファイルより優先されるようになりました。
+   以前は設定ファイルが優先されていましたが、デプロイ時の柔軟性向上のため変更。
+
+   【コミット実行時の注意】
    - 複数のコミットが必要な場合は、各コミットが独立して意味を持つように分割
+   - 1つのコミットには1つの論理的変更のみを含める
+   - 上記フォーマットに厳密に従い、type、description、空行、body、footerの配置を正確に守る
 EOF
 
 exit 0
